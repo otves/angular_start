@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { OkpdSearchComponent } from './okpd-search.component';
 
 @Component({
-    selector: 'my-app',
-    template: '<h1>My First Angular App</h1>'
+  selector: 'app',
+  template: `<okpd-search></okpd-search>`
 })
 export class AppComponent { }
