@@ -47,7 +47,7 @@ const OKPD_TREE = [
         <div *ngIf="item.expand">
           <ul>
           <li *ngFor="let item2 of item.items" (click)="gotoDetail(item2)">
-            <span>{{item.name}}</span>
+            <span>{{item2.name}}</span>
           </li>
           </ul>
         </div>
