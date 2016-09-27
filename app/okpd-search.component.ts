@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Okpd } from './okpd';
+import { OkpdService } from './okpd-service';
 
 @Component({
   selector: 'okpd-search',
