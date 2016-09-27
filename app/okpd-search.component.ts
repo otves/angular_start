@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Okpd } from './okpd';
-import {OkpdService} from "./okpd-service";
 
 @Component({
   selector: 'okpd-search',
@@ -26,7 +25,7 @@ export class OkpdSearchComponent {
   model:{
     query: string,
     result: Okpd[]
-  } = {};
+  } = {query:"", result:[]};
 
   constructor(private okpdService:OkpdService) {
   }
