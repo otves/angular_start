@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Okpd } from './okpd';
 import { OkpdService } from './okpd-service';
+//import {MdInput} from '"@angular2-material/input';
+
 
 @Component({
   selector: 'okpd-search',
@@ -21,7 +23,9 @@ import { OkpdService } from './okpd-service';
 </table>
 </md-card>
   `,
-  providers: [OkpdService]
+  ///providers: [OkpdService],
+  //directives: [MdInput]
+
 })
 export class OkpdSearchComponent {
 

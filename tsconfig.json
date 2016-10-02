@@ -8,9 +8,15 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "./dist/"
   },
   "exclude": [
-    "node_modules"
-  ]
+    "node_modules",
+    "dist",
+    "typings/main",
+    "typings/globals",
+    "typings/main.d.ts"
+  ],
+  "compileOnSave": false
 }
