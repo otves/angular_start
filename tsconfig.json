@@ -10,6 +10,11 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true
   },
+  "paths": {
+    "@angular/material": [
+      "node_modules/@angular/material"
+    ]
+  },
   "exclude": [
     "node_modules"
   ]

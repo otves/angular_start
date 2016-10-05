@@ -38,7 +38,7 @@ const OKPD_TREE = [
 @Component({
   selector: 'okpd-tree',
   template: `
-    <div>
+    <md-card>
     <ul>
       <li *ngFor="let item of model" (click)="gotoDetail(item)">
         <span (click)="item.expand=!item.expand" style="cursor: pointer;">
@@ -47,13 +47,13 @@ const OKPD_TREE = [
         <div *ngIf="item.expand">
           <ul>
           <li *ngFor="let item2 of item.items" (click)="gotoDetail(item2)">
-            <span>{{item.name}}</span>
+            <span>{{item2.name}}</span>
           </li>
           </ul>
         </div>
       </li>
     </ul>
-  </div>
+  </md-card>
   `,
   providers: [OkpdService]
 })

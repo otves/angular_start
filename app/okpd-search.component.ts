@@ -4,7 +4,7 @@ import { OkpdService } from './okpd-service';
 
 @Component({
   selector: 'okpd-search',
-  template: `Поиск по ОКПД <input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск" /> <button (click)="search()">Искать</button>
+  template: `Поиск по ОКПД <md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск" ></md-input> <button (click)="search()">Искать</button>
   <table  *ngIf="model.result && model.result.length > 0">
     <tr>
         <th>Код</th>
