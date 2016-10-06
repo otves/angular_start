@@ -21,7 +21,7 @@ import { OkpdService } from './okpd-service';
   `,
   providers: [OkpdService]
 })
-export class OkpdSearchComponent {
+export class OkpdSearchComponent  {
 
   model:{
     query: string,
@@ -33,7 +33,7 @@ export class OkpdSearchComponent {
 
 
   search() {
-    this.okpdService.find(this.model.query).then(res => this.model.result = res);
+    this.okpdService.getList(this.model.query).then(res => this.model.result = res);
   }
 
 }

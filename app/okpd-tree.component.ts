@@ -1,39 +1,8 @@
 import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { OkpdService } from './okpd-service';
+import { OkpdTree } from './okpd-tree';
 
-interface TreeNode {
-  name:string;
-  items?:TreeNode[];
-}
-
-
-const OKPD_TREE = [
-  {
-    //id: "b",
-    name: "РАЗДЕЛ A ПРОДУКЦИЯ СЕЛЬСКОГО, ЛЕСНОГО И РЫБНОГО ХОЗЯЙСТВА ",
-    items: [
-      {
-        name: "01 Продукция и услуги сельского хозяйства и охоты",
-        items: [
-          {
-            name: "01.1 Культуры однолетние"
-          }, {
-            name: "01.2 Культуры многолетние"
-          }, {
-            name: "01.3 Материалы растительные: растения живые; луковицы, клубнелуковицы и корневища; отводки и черенки; грибницы"
-          },
-        ]
-      },
-      {
-        name: "02 Продукция лесоводства, лесозаготовок и связанные с этим услуги"
-      },
-      {
-        name: "03 Рыба и прочая продукция рыболовства и рыбоводства; услуги, связанные с рыболовством и рыбоводством",
-      }
-    ]
-  }
-
-];
 
 @Component({
   selector: 'okpd-tree',
@@ -57,17 +26,21 @@ const OKPD_TREE = [
   `,
   providers: [OkpdService]
 })
-export class OkpdTreeComponent {
+export class OkpdTreeComponent implements OnInit {
 
 
-  model:TreeNode[] = OKPD_TREE;
+  model:OkpdTree[];
 
   constructor(private okpdService:OkpdService) {
 
   }
 
+  ngOnInit(): void {
+    this.okpdService.getTree().then(res => this.model = res);
+  }
 
-  gotoDetail(okpd:Object) {
+
+  gotoDetail(okpd: Object) {
     //this.okpdService.find(this.model.query).then(res => this.model.result = res);
   }
 
