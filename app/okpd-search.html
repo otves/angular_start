@@ -1,39 +1,42 @@
-Поиск по ОКПД
-<md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск" ></md-input> <button (click)="search()">Искать</button>
+<md-card>
+  Поиск по ОКПД
+  <md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск"></md-input>
+  <button md-button (click)="search()">Искать</button>
 
-<md-tab-group class="demo-tab-group">
+  <md-tab-group class="demo-tab-group">
 
-  <md-tab>
-    <template md-tab-label>ОКПД</template>
-    <template md-tab-content>
-      <table  *ngIf="model.result && model.result.length > 0">
-        <tr>
-          <th>Код</th>
-          <th>Наименование</th>
-          <th>Связи</th>
-        </tr>
+    <md-tab>
+      <template md-tab-label>ОКПД</template>
+      <template md-tab-content>
+        <table *ngIf="model.result && model.result.length > 0">
+          <tr>
+            <th>Код</th>
+            <th>Наименование</th>
+            <th>Связи</th>
+          </tr>
 
-        <tr *ngFor="let okpd of model.result" >
-          <td>{{okpd.okpd}}</td>
-          <td>{{okpd.name}}</td>
-          <td>{{okpd.okpd2}}<br>{{okpd.tnved}}</td>
-        </tr>
-      </table>
-    </template>
-  </md-tab>
+          <tr *ngFor="let okpd of model.result">
+            <td>{{okpd.okpd}}</td>
+            <td>{{okpd.name}}</td>
+            <td>{{okpd.okpd2}}<br>{{okpd.tnved}}</td>
+          </tr>
+        </table>
+      </template>
+    </md-tab>
 
-  <md-tab>
-    <template md-tab-label>ОКПД2</template>
-    <template md-tab-content>
-      1111
-    </template>
-  </md-tab>
+    <md-tab>
+      <template md-tab-label>ОКПД2</template>
+      <template md-tab-content>
+        1111
+      </template>
+    </md-tab>
 
-  <md-tab>
-    <template md-tab-label>НКВД</template>
-    <template md-tab-content>
-      3333
-    </template>
-  </md-tab>
+    <md-tab>
+      <template md-tab-label>НКВД</template>
+      <template md-tab-content>
+        3333
+      </template>
+    </md-tab>
 
-</md-tab-group>
+  </md-tab-group>
+</md-card>
