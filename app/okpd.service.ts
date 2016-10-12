@@ -10,14 +10,14 @@ export class OkpdService {
   constructor (private http: Http) {}
 
   getList(query: String): Promise<Okpd[]> {
-    return this.http.get(`api/okpdSearch?q=${query}`)
+    return this.http.get(`/api/okpdSearch`)
       .toPromise()
       .then(response => response.json().data as Okpd[])
       .catch(this.handleError);
   }
 
   getTree(): Promise<OkpdTree[]> {
-    return this.http.get(`api/okpdTree`)
+    return this.http.get(`/api/okpdTree`)
       .toPromise()
       .then(response => response.json().data as Okpd[])
       .catch(this.handleError);

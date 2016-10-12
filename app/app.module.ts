@@ -6,7 +6,7 @@ import { MaterialModule } from '@angular/material';
 import { AppComponent }  from './app.component';
 import { OkpdSearchComponent } from './okpd-search.component';
 import { OkpdTreeComponent } from './okpd-tree.component';
-import { OkpdService } from './okpd-service';
+import { OkpdService } from './okpd.service';
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -30,7 +30,7 @@ import { MockDatabaseService }  from './mock-database.service';
   bootstrap: [AppComponent],
   providers: [
     OkpdService
-  ],
+  ]
 })
 export class AppModule {
 }

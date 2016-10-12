@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OkpdService } from './okpd-service';
+import { OkpdService } from './okpd.service';
 import { OkpdTree } from './okpd-tree';
 
 

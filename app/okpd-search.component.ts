@@ -1,20 +1,11 @@
 import { Component } from '@angular/core';
 import { Okpd } from './okpd';
-import { OkpdService } from './okpd-service';
+import { OkpdService } from './okpd.service';
 
 @Component({
   moduleId: module.id,
   selector: 'okpd-search',
-  styles: [`.demo-tab-group {
-    border: 1px solid #e0e0e0;
-}
-
-.md-tab-header {
-  background: #f9f9f9;
-}
-.md-tab-body {
-  padding: 12px;
-}`],
+  styleUrls: ['okpd-search.css'],
   templateUrl: 'okpd-search.html',
   providers: [OkpdService]
 })
