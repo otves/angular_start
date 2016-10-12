@@ -8,20 +8,9 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "outDir": "./dist/"
-  },
-  "paths": {
-    "@angular/material": [
-      "node_modules/@angular/material"
-    ]
+    "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
-    "node_modules",
-    "dist",
-    "typings/main",
-    "typings/globals",
-    "typings/main.d.ts"
-  ],
-  "compileOnSave": false
+    "node_modules"
+  ]
 }

@@ -3,30 +3,27 @@ import { Okpd } from './okpd';
 import { OkpdService } from './okpd-service';
 
 @Component({
+  moduleId: module.id,
   selector: 'okpd-search',
-  template: `Поиск по ОКПД <md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск" ></md-input> <button (click)="search()">Искать</button>
-  <table  *ngIf="model.result && model.result.length > 0">
-    <tr>
-        <th>Код</th>
-        <th>Наименование</th>
-        <th>Связи</th>
-      </tr>
+  styles: [`.demo-tab-group {
+    border: 1px solid #e0e0e0;
+}
 
-     <tr *ngFor="let okpd of model.result" >
-        <td>{{okpd.okpd}}</td>
-        <td>{{okpd.name}}</td>
-        <td>{{okpd.okpd2}}<br>{{okpd.tnved}}</td>
-      </tr>
-</table>
-  `,
+.md-tab-header {
+  background: #f9f9f9;
+}
+.md-tab-body {
+  padding: 12px;
+}`],
+  templateUrl: 'okpd-search.html',
   providers: [OkpdService]
 })
-export class OkpdSearchComponent  {
+export class OkpdSearchComponent {
 
   model:{
     query: string,
     result: Okpd[]
-  } = {query:"", result:[]};
+  } = {query: "", result: []};
 
   constructor(private okpdService:OkpdService) {
   }
