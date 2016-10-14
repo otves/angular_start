@@ -5,6 +5,7 @@ import { OkpdTree } from './okpd-tree';
 
 
 @Component({
+  moduleId: module.id,
   selector: 'okpd-tree',
   template: `
     <md-card>
