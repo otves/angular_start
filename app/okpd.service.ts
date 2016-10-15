@@ -1,33 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { BackAPI } from './back-api.service';
 import { Okpd } from './okpd';
-import { OkpdTree } from './okpd-tree';
+import { ClassificatorTree } from './classificator-tree';
 
 @Injectable()
 export class OkpdService {
 
-  constructor (private http: Http) {}
+  constructor (private backApi: BackAPI) {}
 
   getList(query: String): Promise<Okpd[]> {
-    return this.http.get(`/api/okpdSearch`)
-      .toPromise()
-      .then(response => response.json().data as Okpd[])
-      .catch(this.handleError);
+    return this.backApi.okpdBy().then(response => response as Okpd[]);
   }
 
-  getTree(): Promise<OkpdTree[]> {
-    return this.http.get(`/api/okpdTree`)
-      .toPromise()
-      .then(response => response.json().data as Okpd[])
-      .catch(this.handleError);
+  treeBy(rootCode: String): Promise<ClassificatorTree> {
+    return this.backApi.okpdTree(rootCode).then(response => response as ClassificatorTree);
   }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-  }
-
 
 
 }

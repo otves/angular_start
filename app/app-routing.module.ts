@@ -2,7 +2,7 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { OkpdSearchComponent } from './okpd-search.component';
-import { OkpdTreeComponent } from './okpd-tree.component';
+import { ClassificatorsTreeComponent } from './classificators-tree.component';
 
 const routes: Routes = [
   {
@@ -11,7 +11,7 @@ const routes: Routes = [
   },
   {
     path: 'tree',
-    component: OkpdTreeComponent
+    component: ClassificatorsTreeComponent
   },
   {path: '', redirectTo: '/search', pathMatch: 'full'}
 ];

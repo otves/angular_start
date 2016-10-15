@@ -1,0 +1,9 @@
+<ul *ngIf="model != null">
+  <li *ngFor="let item of model.items">
+    <span *ngIf="item.hasChildren" style="cursor:pointer;" (click)="expand(item)">{{ item.code }} {{item.name}}</span>
+    <span *ngIf="!item.hasChildren">{{ item.code }} {{item.name}}</span>
+    <div *ngIf="item.expanded">
+      <classificator-tree *ngIf="item.classificator.children != null" [(model)]="item.classificator.children"></classificator-tree>
+    </div>
+  </li>
+</ul>

@@ -1,12 +1,14 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
-import { HttpModule }    from '@angular/http';
+import { HttpModule, JsonpModule }    from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { AppComponent }  from './app.component';
 import { OkpdSearchComponent } from './okpd-search.component';
-import { OkpdTreeComponent } from './okpd-tree.component';
+import { ClassificatorsTreeComponent } from './classificators-tree.component';
+import { ClassificatorTreeComponent } from './components/classificator-tree/classificator-tree.component';
 import { OkpdService } from './okpd.service';
+import { BackAPI } from './back-api.service';
 import { AppRoutingModule }     from './app-routing.module';
 
 // Imports for loading & configuring the in-memory web api
@@ -18,19 +20,22 @@ import { MockDatabaseService }  from './mock-database.service';
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(MockDatabaseService, {
-      delay: 100,  rootPath: 'api/'
-    }),
+    JsonpModule,
+    //InMemoryWebApiModule.forRoot(MockDatabaseService, {
+    //  delay: 100,  rootPath: 'api/'
+    //}),
     AppRoutingModule,
     MaterialModule.forRoot()
   ],
   declarations: [
     AppComponent,
     OkpdSearchComponent,
-    OkpdTreeComponent
+    ClassificatorsTreeComponent,
+    ClassificatorTreeComponent
   ],
   bootstrap: [AppComponent],
   providers: [
+    BackAPI,
     OkpdService
   ]
 })
