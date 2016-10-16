@@ -25,7 +25,6 @@ export class OkpdSearchComponent {
 
   search() {
     this.okpdService.getList(this.model.query).then(res => {
-      console.log(">>>", res);
       this.model.result = res
     });
   }
