@@ -1,0 +1,166 @@
+#%RAML 1.0
+title: Backend API
+version: v0.1
+baseUri: http://localhost:
+mediaType:  application/json
+
+/classificators:
+  get:
+    description: |
+     Возвращает результат по полнотекстовому поиску сразу по всем классификаторам
+    queryParameters:
+      queryParameters:
+        query:
+          description: "Запрос для полнотекстового поиска по  всем классификаторам"
+          type: string
+          required: true
+          example: "оленьи рога"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                  {
+                    okpd: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true,
+                    },
+                    okpd2: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true,
+                    },
+                    tnved: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true
+                    }
+                  },
+                  okpd: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true
+                    },
+                    okpd2: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true
+                    },
+                    tnved: {
+                      code: "01",
+                      parentCode: null,
+                      name: "",
+                      notes: null,
+                      hasChildren: true
+                    }
+                  }
+                ]
+
+  /okpd:
+    get:
+      description: |
+        Дерево классификатора. Пока нужно получать только потомков 1го уровня от корня с кодом code.
+      queryParameters:
+        code:
+          description: "Код окпд"
+          type: string
+          required: false
+          example: "01"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                  {
+                    "code":"01",
+                    "name":"Продукция и услуги сельского хозяйства и охоты",
+                    "notes":null,
+                    "parentCode":null,
+                    "hasChildren":true
+                  },
+                  {
+                    "code":"02",
+                    "name":"Продукция лесоводства, лесозаготовок и связанные с этим услуги",
+                    "notes":null,
+                    "level":1,
+                    "parentCode":null,
+                    "hasChildren":true
+                  }
+                ]
+  /okpd2:
+    get:
+      description: |
+        Сlassificators tree
+      queryParameters:
+        code:
+          description: "Код окпд2"
+          type: string
+          required: false
+          example: "01"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                  {
+                    "code":"01",
+                    "name":"Продукция и услуги сельского хозяйства и охоты",
+                    "notes":null,
+                    "parentCode":null,
+                    "hasChildren":true
+                  },
+                  {
+                    "code":"02",
+                    "name":"Продукция лесоводства, лесозаготовок и связанные с этим услуги",
+                    "notes":null,
+                    "level":1,
+                    "parentCode":null,
+                    "hasChildren":true
+                  }
+                ]
+  /tnved:
+    get:
+      description: |
+        Сlassificators tree
+      queryParameters:
+        code:
+          description: "Код ТНВЭД"
+          type: string
+          required: false
+          example: "01"
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                [
+                  {
+                    "code":"01",
+                    "name":"Продукция и услуги сельского хозяйства и охоты",
+                    "notes":null,
+                    "parentCode":null,
+                    "hasChildren":true
+                  },
+                  {
+                    "code":"02",
+                    "name":"Продукция лесоводства, лесозаготовок и связанные с этим услуги",
+                    "notes":null,
+                    "level":1,
+                    "parentCode":null,
+                    "hasChildren":true
+                  }
+                ]
