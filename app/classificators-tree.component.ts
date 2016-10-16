@@ -5,26 +5,26 @@ import { ClassificatorTreeComponent } from './components/classificator-tree/clas
   moduleId: module.id,
   selector: 'classificators-tree',
   template: `
-    <md-tab-group class="demo-tab-group">
+    <md-tab-group class="demo-tab-group" (selectChange)="onSelectChange($event)">
 
     <md-tab>
       <template md-tab-label>ОКПД</template>
       <template md-tab-content>
-        <classificator-tree [type]="okpd"></classificator-tree>
+        <classificator-tree  *ngIf="activeTabIndex == 0" [type]="'okpd'"></classificator-tree>
       </template>
     </md-tab>
 
     <md-tab>
       <template md-tab-label>ОКПД2</template>
       <template md-tab-content>
-        <classificator-tree [type]="okpd2"></classificator-tree>
+        <classificator-tree *ngIf="activeTabIndex == 1"  [type]="'okpd2'"></classificator-tree>
       </template>
     </md-tab>
 
     <md-tab>
       <template md-tab-label>ТНВЭД</template>
       <template md-tab-content>
-         <classificator-tree [type]="tnved"></classificator-tree>
+         <classificator-tree *ngIf="activeTabIndex == 2"  [type]="'tnved'"></classificator-tree>
       </template>
     </md-tab>
 
@@ -33,5 +33,11 @@ import { ClassificatorTreeComponent } from './components/classificator-tree/clas
 })
 export class ClassificatorsTreeComponent {
 
+  activeTabIndex:number = 0;
+
+  onSelectChange(tab:any) {
+    console.log('>>>>>>', tab.index);
+    this.activeTabIndex = tab.index;
+  }
 
 }

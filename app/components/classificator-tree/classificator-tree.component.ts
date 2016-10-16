@@ -16,6 +16,7 @@ export class ClassificatorTreeComponent implements OnInit {
   @Input() type:string;
 
   private model:TreeModel;
+
   constructor(private okpdService:OkpdService) {
   }
 
@@ -26,11 +27,26 @@ export class ClassificatorTreeComponent implements OnInit {
   }
 
   loadNodes(rootId:string) {
-    this.okpdService.treeBy(rootId).then(classificators => {
+    this.treeClassificatorBy(rootId).then(classificators => {
       let treeModel = this.treeModelBy(rootId);
       fillNodes(treeModel, classificators);
     });
   }
+
+
+  treeClassificatorBy(rootId:string):Promise<ClassificatorTree> {
+    switch (this.type) {
+      case 'okpd':
+        return this.okpdService.okpdTreeBy(rootId);
+      case 'okpd2':
+        return this.okpdService.okpd2TreeBy(rootId);
+      case 'tnved':
+        return this.okpdService.tnvedTreeBy(rootId);
+      default:
+        throw new Error(`Type ${this.type} don't support`);
+    }
+  }
+
 
   treeModelBy(code:string):TreeModel {
     if (code == null) {

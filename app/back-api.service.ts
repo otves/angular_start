@@ -15,6 +15,14 @@ export class BackAPI {
     return this.get('classificators/okpd', {code: code});
   }
 
+  okpd2Tree(code:String):Promise<any> {
+    return this.get('classificators/okpd2', {code: code});
+  }
+
+  tnvedTree(code:String):Promise<any> {
+    return this.get('classificators/tnved', {code: code});
+  }
+
   okpdBy(query: string):Promise<any> {
     return this.get(`classificators`, {query: query});
   }
