@@ -10,6 +10,8 @@ import { ClassificatorTreeComponent } from './components/classificator-tree/clas
 import { OkpdService } from './okpd.service';
 import { BackAPI } from './back-api.service';
 import { AppRoutingModule }     from './app-routing.module';
+import { TreeViewComponent } from './components/classificator-tree/tree-veiw.component';
+
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
@@ -31,7 +33,8 @@ import { MockDatabaseService }  from './mock-database.service';
     AppComponent,
     OkpdSearchComponent,
     ClassificatorsTreeComponent,
-    ClassificatorTreeComponent
+    ClassificatorTreeComponent,
+    TreeViewComponent
   ],
   bootstrap: [AppComponent],
   providers: [

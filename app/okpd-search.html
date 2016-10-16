@@ -1,40 +1,78 @@
-  Поиск по ОКПД
-  <md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск"></md-input>
-  <button md-button (click)="search()">Искать</button>
+Поиск по ОКПД
+<md-input [(ngModel)]="model.query" placeholder="Полнотекстовый поиск"></md-input>
+<button md-button (click)="search()">Искать</button>
 
-  <md-tab-group class="demo-tab-group">
+<md-tab-group class="demo-tab-group">
 
-    <md-tab>
-      <template md-tab-label>ОКПД</template>
+  <md-tab>
+    <template md-tab-label>ОКПД</template>
+    <template md-tab-content>
+      <table class="search-result" *ngIf="model.result">
+        <tr>
+          <th>Код</th>
+          <th>Наименование</th>
+          <th>Связи</th>
+        </tr>
+        <tr *ngFor="let item of  this.model.result">
+            <td  *ngIf="item.okpd" class="code">{{item.okpd.code}}</td>
+            <td  *ngIf="item.okpd" class="name">{{item.okpd.name}}</td>
+            <td   *ngIf="item.okpd" class="">
+              <span *ngIf="item.okpd">ОКПД <a href="#">{{item.okpd.code}}</a></span>
+              <span *ngIf="item.okpd2">ОКПД2 <a href="#">{{item.okpd2.code}}</a></span>
+              <br>
+              <span *ngIf="item.tnved">ТНВЭД <a href="#">{{item.tnved.code}}</a></span>
+            </td>
+        </tr>
+      </table>
+    </template>
+  </md-tab>
+
+  <md-tab>
+    <template md-tab-label>ОКПД2</template>
+    <template md-tab-content>
       <template md-tab-content>
-        <table *ngIf="model.result && model.result.length > 0">
+        <table class="search-result" *ngIf="model.result">
           <tr>
             <th>Код</th>
             <th>Наименование</th>
             <th>Связи</th>
           </tr>
-
-          <tr *ngFor="let okpd of model.result">
-            <td>{{okpd.okpd}}</td>
-            <td>{{okpd.name}}</td>
-            <td>{{okpd.okpd2}}<br>{{okpd.tnved}}</td>
+          <tr *ngFor="let item of  this.model.result">
+              <td *ngIf="item.okpd2" class="code">{{item.okpd2.code}}</td>
+              <td *ngIf="item.okpd2" class="name">{{item.okpd2.name}}</td>
+              <td  *ngIf="item.okpd2" class="">
+                <span *ngIf="item.okpd2">ОКПД2<a href="#">{{item.okpd2.code}}</a></span>
+                <span *ngIf="item.okpd">ОКПД<a href="#">{{item.okpd.code}}</a></span>
+                <br>
+                <span *ngIf="item.tnved">ТНВЭД<a href="#">{{item.tnved.code}}</a></span>
+              </td>
           </tr>
         </table>
       </template>
-    </md-tab>
+    </template>
+  </md-tab>
 
-    <md-tab>
-      <template md-tab-label>ОКПД2</template>
-      <template md-tab-content>
-        1111
-      </template>
-    </md-tab>
+  <md-tab>
+    <template md-tab-label>ТНВЭД</template>
+    <template md-tab-content>
+      <table class="search-result" *ngIf="model.result">
+        <tr>
+          <th>Код</th>
+          <th>Наименование</th>
+          <th>Связи</th>
+        </tr>
+        <tr *ngFor="let item of  this.model.result">
+            <td *ngIf="item.tnved" class="code">{{item.tnved.code}}</td>
+            <td *ngIf="item.tnved" class="name">{{item.tnved.name}}</td>
+            <td *ngIf="item.tnved" class="">
+              <span *ngIf="item.okpd2">ОКПД2 <a href="#">{{item.okpd2.code}}</a></span>
+              <span *ngIf="item.okpd">ОКПД <a href="#">{{item.okpd.code}}</a></span>
+              <br>
+              <span *ngIf="item.tnved"><a href="#"> ТНВЭД{{item.tnved.code}}</a></span>
+            </td>
+        </tr>
+      </table>
+    </template>
+  </md-tab>
 
-    <md-tab>
-      <template md-tab-label>НКВД</template>
-      <template md-tab-content>
-        3333
-      </template>
-    </md-tab>
-
-  </md-tab-group>
+</md-tab-group>

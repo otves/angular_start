@@ -15,8 +15,8 @@ export class BackAPI {
     return this.get('classificators/okpd', {code: code});
   }
 
-  okpdBy():Promise<any> {
-    return this.get(`classificators/search`, {});
+  okpdBy(query: string):Promise<any> {
+    return this.get(`classificators`, {query: query});
   }
 
   private get(url:string, params:Object):Promise<any> {
@@ -26,7 +26,7 @@ export class BackAPI {
       headers: headers,
       search: new URLSearchParams(queryParams)
     });
-    console.log('GET:', `${backendRestUrlRoot}/${url}${queryParams}`);
+    console.log('GET:', `${backendRestUrlRoot}/${url}?${queryParams}`);
     return this.http.get(`${backendRestUrlRoot}/${url}`, options)
       .toPromise()
       .then(this.extractData)

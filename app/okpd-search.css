@@ -8,3 +8,19 @@
 .md-tab-body {
   padding: 12px;
 }
+
+.search-result {
+  width: 100%;
+}
+
+.search-result th {
+  text-align: left;
+}
+
+.search-result td.code {
+  width: 30%;
+}
+
+.search-result td.name {
+  width: 50%;
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Okpd } from './okpd';
+import { ClassificatorUnited, Classificator } from './classificator';
 import { OkpdService } from './okpd.service';
 
 @Component({
@@ -13,15 +13,21 @@ export class OkpdSearchComponent {
 
   model:{
     query: string,
-    result: Okpd[]
-  } = {query: "", result: []};
+    result: ClassificatorUnited[]
+  } = {
+    query: "",
+    result: null
+  };
 
   constructor(private okpdService:OkpdService) {
   }
 
 
   search() {
-    this.okpdService.getList(this.model.query).then(res => this.model.result = res);
+    this.okpdService.getList(this.model.query).then(res => {
+      console.log(">>>", res);
+      this.model.result = res
+    });
   }
 
 }

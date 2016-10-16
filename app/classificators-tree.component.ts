@@ -5,12 +5,31 @@ import { ClassificatorTreeComponent } from './components/classificator-tree/clas
   moduleId: module.id,
   selector: 'classificators-tree',
   template: `
-    <ul>
-      <li>
-        ОКПД
-        <classificator-tree></classificator-tree>
-      </li>
-    </ul>`
+    <md-tab-group class="demo-tab-group">
+
+    <md-tab>
+      <template md-tab-label>ОКПД</template>
+      <template md-tab-content>
+        <classificator-tree [type]="okpd"></classificator-tree>
+      </template>
+    </md-tab>
+
+    <md-tab>
+      <template md-tab-label>ОКПД2</template>
+      <template md-tab-content>
+        <classificator-tree [type]="okpd2"></classificator-tree>
+      </template>
+    </md-tab>
+
+    <md-tab>
+      <template md-tab-label>ТНВЭД</template>
+      <template md-tab-content>
+         <classificator-tree [type]="tnved"></classificator-tree>
+      </template>
+    </md-tab>
+
+  </md-tab-group>
+    `
 })
 export class ClassificatorsTreeComponent {
 
