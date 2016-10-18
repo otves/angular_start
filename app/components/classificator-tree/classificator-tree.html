@@ -1,6 +1,6 @@
-<div *ngIf="model.treePath != null">
+<div *ngIf="model.detailed != null">
     <span *ngFor="let item of model.treePath">
      {{item.name}}
     </span>
 </div>
-<tree-view (initRoot)="loadNodes($event)" (detail)="detailRoot($event)" [model]= "model.tree"></tree-view>
+<tree-view (nodeClick)="nodeClick($event)" [model]= "model.tree"></tree-view>

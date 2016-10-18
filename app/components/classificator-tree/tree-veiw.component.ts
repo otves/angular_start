@@ -12,12 +12,17 @@ export class TreeViewComponent implements OnInit {
 
   @Input() model:TreeModel;
 
-  @Output() initRoot:EventEmitter<string> = new EventEmitter<string>();
+  //@Output() initRoot:EventEmitter<string> = new EventEmitter<string>();
 
-  @Output() detail:EventEmitter<string> = new EventEmitter<string>();
+  @Output() nodeClick:EventEmitter<string> = new EventEmitter<string>();
 
-  loadNodes(code:string) {
-    this.initRoot.emit(code);
+  //loadNodes(code:string) {
+  //  this.initRoot.emit(code);
+  //}
+
+  onNodeClick(nodeId:string) {
+    console.log('onNodeClick:' + nodeId);
+    this.nodeClick.emit(nodeId);
   }
 
   ngOnInit():void {
@@ -26,6 +31,7 @@ export class TreeViewComponent implements OnInit {
 
   expand(treeNode:TreeNodeModel) {
     treeNode.expanded = !treeNode.expanded;
+    this.onNodeClick(treeNode.id);
   }
 
 }

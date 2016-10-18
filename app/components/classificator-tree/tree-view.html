@@ -3,7 +3,7 @@
     <span *ngIf="node.hasNodes" style="cursor:pointer;" (click)="expand(node)">{{ node.id }} {{node.name}}</span>
     <span *ngIf="!node.hasNodes">{{ node.id }} {{node.name}}</span>
     <div *ngIf="node.expanded">
-      <tree-view (initRoot)="loadNodes(node.id)" [model]="node"></tree-view>
+      <tree-view (nodeClick)="onNodeClick(node.id)" [model]="node"></tree-view>
     </div>
   </li>
 </ul>

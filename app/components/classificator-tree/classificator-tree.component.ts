@@ -4,6 +4,7 @@ import { OkpdService } from 'app/okpd.service';
 import { Classificator, ClassificatorTree } from 'app/classificator';
 import { TreeModel, TreeNodeModel } from './tree.model';
 import { TreeViewComponent } from './tree-veiw.component';
+import Promise = require("../../../node_modules/any-promise/index");
 
 
 @Component({
@@ -13,15 +14,26 @@ import { TreeViewComponent } from './tree-veiw.component';
 })
 export class ClassificatorTreeComponent implements OnInit {
 
+  private maxLevel:number = 3;
+
   @Input() type:string;
 
-  model: Model;
+  model:Model;
 
   constructor(private okpdService:OkpdService) {
   }
 
-  detailRoot(rootCode:string) {
+  onNodeClick(nodeId:string) {
+    console.log('ROOT:onNodeClick:' + nodeId);
 
+    let node = this.model.treeBy(nodeId);
+    if (node == null) {
+       this.loadNodes(nodeId).then(node => {
+        if(node.level == this.maxLevel) {
+          this.model.detail(node);
+        }
+      });
+    }
   }
 
   ngOnInit():void {
@@ -29,10 +41,10 @@ export class ClassificatorTreeComponent implements OnInit {
     this.loadNodes(null);
   }
 
-  loadNodes(rootId:string) {
-    this.treeClassificatorBy(rootId).then(classificators => {
+  loadNodes(rootId:string): Promise<TreeModel> {
+    return this.treeClassificatorBy(rootId).then(classificators => {
       let treeModel = this.model.treeBy(rootId);
-      fillNodes(treeModel, classificators);
+      return fillNodes(treeModel, classificators);
     });
   }
 
@@ -64,27 +76,51 @@ function fillNodes(model:TreeModel, classificatorTree:ClassificatorTree) {
     node.hasNodes = classificator.hasChildren;
     model.nodes.push(node);
   }
+  return model;
 }
 
- class Model {
+class Model {
 
-   tree: TreeModel;
-   cachedTree: TreeModel;
-   treePath:string[];
+  detailed: string;
 
-   constructor() {
-     this.tree = new TreeModel();
-     this.tree.id = null;
-     this.cachedTree = this.tree;
-   }
+  tree:TreeModel;
+  cachedTree:TreeModel;
 
-   treeBy(code:string):TreeModel {
-     if (code == null) {
-       return this.tree;
-     }
-     for (let node of  this.cachedTree.nodes) {
-       if (node.id == code) return node;
-     }
-   }
+  constructor() {
+    this.tree = new TreeModel();
+    this.tree.id = null;
+    this.cachedTree = this.tree;
+    this.detailed = null;
+  }
+
+  detail(node:TreeModel) {
+    this.detailed = node.id;
+    this.tree = node;
+  }
+
+  get treePath(): string[] {
+    return [];
+  }
+
+  treeBy(rootId:string):TreeModel {
+    if (rootId == null) {
+      return this.cachedTree;
+    }
+    return this.findNodeIn(rootId, this.cachedTree);
+  }
+
+  findNodeIn(rootId:string, tree:TreeModel, level:number = 0):TreeModel {
+    tree.level = level;
+    if (rootId == tree.id) {
+      return tree;
+    }
+    for (let subTree of tree.nodes) {
+      let node = this.findNodeIn(rootId, subTree, level + 1);
+      if (node != null) {
+        return node;
+      }
+    }
+    return null;
+  }
 
 }

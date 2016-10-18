@@ -1,6 +1,7 @@
 export class TreeModel {
   nodes:TreeNodeModel[];
   id:string;
+  level: number;
 
 }
 
