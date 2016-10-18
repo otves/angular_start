@@ -14,8 +14,10 @@ export class TreeViewComponent implements OnInit {
 
   @Output() initRoot:EventEmitter<string> = new EventEmitter<string>();
 
+  @Output() detail:EventEmitter<string> = new EventEmitter<string>();
+
   loadNodes(code:string) {
-      this.initRoot.emit(code);
+    this.initRoot.emit(code);
   }
 
   ngOnInit():void {

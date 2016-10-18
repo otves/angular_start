@@ -15,20 +15,23 @@ export class ClassificatorTreeComponent implements OnInit {
 
   @Input() type:string;
 
-  private model:TreeModel;
+  model: Model;
 
   constructor(private okpdService:OkpdService) {
   }
 
+  detailRoot(rootCode:string) {
+
+  }
+
   ngOnInit():void {
-    this.model = new TreeModel();
-    this.model.id = null;
+    this.model = new Model();
     this.loadNodes(null);
   }
 
   loadNodes(rootId:string) {
     this.treeClassificatorBy(rootId).then(classificators => {
-      let treeModel = this.treeModelBy(rootId);
+      let treeModel = this.model.treeBy(rootId);
       fillNodes(treeModel, classificators);
     });
   }
@@ -47,16 +50,6 @@ export class ClassificatorTreeComponent implements OnInit {
     }
   }
 
-
-  treeModelBy(code:string):TreeModel {
-    if (code == null) {
-      return this.model;
-    }
-    for (let node of  this.model.nodes) {
-      if (node.id == code) return node;
-    }
-  }
-
 }
 
 function fillNodes(model:TreeModel, classificatorTree:ClassificatorTree) {
@@ -71,4 +64,27 @@ function fillNodes(model:TreeModel, classificatorTree:ClassificatorTree) {
     node.hasNodes = classificator.hasChildren;
     model.nodes.push(node);
   }
+}
+
+ class Model {
+
+   tree: TreeModel;
+   cachedTree: TreeModel;
+   treePath:string[];
+
+   constructor() {
+     this.tree = new TreeModel();
+     this.tree.id = null;
+     this.cachedTree = this.tree;
+   }
+
+   treeBy(code:string):TreeModel {
+     if (code == null) {
+       return this.tree;
+     }
+     for (let node of  this.cachedTree.nodes) {
+       if (node.id == code) return node;
+     }
+   }
+
 }
