@@ -2,7 +2,7 @@ import { Component, Input} from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OkpdService } from 'app/okpd.service';
 import { Classificator, ClassificatorTree } from 'app/classificator';
-import { TreeModel, TreeNodeModel } from './tree.model';
+import { TreeModel } from './tree.model';
 import { TreeViewComponent } from './tree-veiw.component';
 import Promise = require("../../../node_modules/any-promise/index");
 
@@ -27,9 +27,9 @@ export class ClassificatorTreeComponent implements OnInit {
     console.log('ROOT:onNodeClick:' + nodeId);
 
     let node = this.model.treeBy(nodeId);
-    if (node == null) {
-       this.loadNodes(nodeId).then(node => {
-        if(node.level == this.maxLevel) {
+    if (node.nodes == null) {
+      this.loadNodes(nodeId).then(node => {
+        if (node.level == this.maxLevel) {
           this.model.detail(node);
         }
       });
@@ -41,7 +41,7 @@ export class ClassificatorTreeComponent implements OnInit {
     this.loadNodes(null);
   }
 
-  loadNodes(rootId:string): Promise<TreeModel> {
+  loadNodes(rootId:string):Promise<TreeModel> {
     return this.treeClassificatorBy(rootId).then(classificators => {
       let treeModel = this.model.treeBy(rootId);
       return fillNodes(treeModel, classificators);
@@ -68,7 +68,7 @@ function fillNodes(model:TreeModel, classificatorTree:ClassificatorTree) {
   if (classificatorTree == null) return model;
   model.nodes = [];
   for (let classificator of classificatorTree) {
-    const node = new TreeNodeModel();
+    const node = new TreeModel();
     node.name = classificator.name;
     node.id = classificator.code;
     node.parentId = classificator.parentCode;
@@ -81,14 +81,15 @@ function fillNodes(model:TreeModel, classificatorTree:ClassificatorTree) {
 
 class Model {
 
-  detailed: string;
+  detailed:string;
 
   tree:TreeModel;
   cachedTree:TreeModel;
 
-  constructor() {
+  constructor(private rootId:string) {
     this.tree = new TreeModel();
-    this.tree.id = null;
+    this.tree.id = rootId;
+    this.tree.name = this.type;
     this.cachedTree = this.tree;
     this.detailed = null;
   }
@@ -98,23 +99,35 @@ class Model {
     this.tree = node;
   }
 
-  get treePath(): string[] {
-    return [];
+  get treePath(): TreeModel[] {
+    let node = this.tree;
+    const path: TreeModel[] = [];
+    while (node.parent != null) {
+      path.push(node.parent);
+      node = node.parent;
+    }
+    return path.reverse();
   }
 
   treeBy(rootId:string):TreeModel {
-    if (rootId == null) {
+    console.log('treeBy:' + rootId);
+    if (rootId == this.rootId) {
       return this.cachedTree;
     }
     return this.findNodeIn(rootId, this.cachedTree);
   }
 
   findNodeIn(rootId:string, tree:TreeModel, level:number = 0):TreeModel {
+    console.log('findNodeIn:' + rootId + ', tree:', tree);
     tree.level = level;
     if (rootId == tree.id) {
       return tree;
     }
+    if (tree.nodes == null) {
+      return null;
+    }
     for (let subTree of tree.nodes) {
+      subTree.parent = tree;
       let node = this.findNodeIn(rootId, subTree, level + 1);
       if (node != null) {
         return node;

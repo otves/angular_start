@@ -1,16 +1,11 @@
 export class TreeModel {
-  nodes:TreeNodeModel[];
-  id:string;
   level: number;
-
-}
-
-export class TreeNodeModel extends TreeModel {
   expanded:boolean;
   parentId:string;
+  parent: TreeModel;
   id:string;
   name:string;
   notes:string;
   hasNodes:boolean;
-  nodes:TreeNodeModel[];
+  nodes:TreeModel[];
 }
