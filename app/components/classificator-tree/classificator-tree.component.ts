@@ -1,11 +1,10 @@
 import { Component, Input} from '@angular/core';
 import { OnInit } from '@angular/core';
+import { ActivatedRoute, Params }   from '@angular/router';
 import { OkpdService } from 'app/okpd.service';
 import { Classificator, ClassificatorTree } from 'app/classificator';
 import { TreeModel } from './tree.model';
 import { TreeViewComponent } from './tree-veiw.component';
-import Promise = require("../../../node_modules/any-promise/index");
-
 
 @Component({
   moduleId: module.id,
@@ -20,32 +19,49 @@ export class ClassificatorTreeComponent implements OnInit {
 
   model:Model;
 
-  constructor(private okpdService:OkpdService) {
+  constructor(private route:ActivatedRoute, private okpdService:OkpdService) {
+    this.route.params.subscribe(params => {
+      console.log('route:subscribe:', params);
+      if(params.root) {
+        const nodeId:string = params.root.toString;
+        this.loadTree(nodeId).then(node => {
+          this.model.detail(node);
+        });
+      }
+    });
   }
 
   onNodeClick(nodeId:string) {
     console.log('ROOT:onNodeClick:' + nodeId);
+    this.loadTree(nodeId).then(node => {
+      if (node.level == this.maxLevel) {
+        this.model.detail(node);
+      }
+    }).
+    catch(err => console.error('Error in classificator load', err));
 
-    let node = this.model.treeBy(nodeId);
-    if (node.nodes == null) {
-      this.loadNodes(nodeId).then(node => {
-        if (node.level == this.maxLevel) {
-          this.model.detail(node);
-        }
-      });
-    }
   }
 
   ngOnInit():void {
-    this.model = new Model();
-    this.loadNodes(null);
+    console.log('ngOnInit');
+    console.log('ROOT:root:' + this.route.snapshot.queryParams['root']);
+    console.log('routet:', this.route);
+    this.model = new Model(this.type);
+    this.loadTree(this.type).
+    catch(err => console.error('Error in classificator load', err));
   }
 
-  loadNodes(rootId:string):Promise<TreeModel> {
-    return this.treeClassificatorBy(rootId).then(classificators => {
-      let treeModel = this.model.treeBy(rootId);
-      return fillNodes(treeModel, classificators);
-    });
+  loadTree(nodeId:string):Promise<TreeModel> {
+    let node = this.model.treeBy(nodeId);
+    if (node.nodes == null) {
+      nodeId = (this.type == nodeId) ? null : nodeId;
+      return this.treeClassificatorBy(nodeId).then(classificators => {
+        let treeModel = this.model.treeBy(nodeId);
+        return fillNodes(treeModel, classificators);
+      })
+    } else {
+      return Promise.resolve(node);
+    }
   }
 
 
@@ -89,7 +105,6 @@ class Model {
   constructor(private rootId:string) {
     this.tree = new TreeModel();
     this.tree.id = rootId;
-    this.tree.name = this.type;
     this.cachedTree = this.tree;
     this.detailed = null;
   }
@@ -99,9 +114,9 @@ class Model {
     this.tree = node;
   }
 
-  get treePath(): TreeModel[] {
+  get treePath():TreeModel[] {
     let node = this.tree;
-    const path: TreeModel[] = [];
+    const path:TreeModel[] = [];
     while (node.parent != null) {
       path.push(node.parent);
       node = node.parent;
