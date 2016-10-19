@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router }   from '@angular/router';
 import { ClassificatorUnited, Classificator } from './classificator';
 import { OkpdService } from './okpd.service';
 
@@ -19,9 +20,12 @@ export class OkpdSearchComponent {
     result: null
   };
 
-  constructor(private okpdService:OkpdService) {
+  constructor(private router:Router, private okpdService:OkpdService) {
   }
 
+  toOkpd(code:string) {
+    this.router.navigate([`/tree/okpd/${encodeURIComponent(code)}`])
+  }
 
   search() {
     this.okpdService.getList(this.model.query).then(res => {

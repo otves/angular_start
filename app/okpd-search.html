@@ -17,7 +17,7 @@
             <td  *ngIf="item.okpd" class="code">{{item.okpd.code}}</td>
             <td  *ngIf="item.okpd" class="name">{{item.okpd.name}}</td>
             <td   *ngIf="item.okpd" class="">
-              <span *ngIf="item.okpd">ОКПД <a href="#">{{item.okpd.code}}</a></span>
+              <span *ngIf="item.okpd">ОКПД <span class="href" (click)="toOkpd(item.okpd.code)">{{item.okpd.code}}</span></span>
               <span *ngIf="item.okpd2">ОКПД2 <a href="#">{{item.okpd2.code}}</a></span>
               <br>
               <span *ngIf="item.tnved">ТНВЭД <a href="#">{{item.tnved.code}}</a></span>

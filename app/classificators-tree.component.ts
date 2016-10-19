@@ -56,7 +56,7 @@ export class ClassificatorsTreeComponent implements OnInit {
 
   set selectedType(code:string) {
    // console.log('selectedType:' + code);
-    let needLoad = null;
+    let needLoad:string = null;
     this.tabs.forEach(t => {
       if (t.type == code) {
         if (!t.selected) needLoad = t.type;
