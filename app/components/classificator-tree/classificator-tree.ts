@@ -31,7 +31,6 @@ export class ClassificatorTreeModel {
   }
 
   treeBy(rootId:string):Tree {
-    console.log('treeBy:' + rootId);
     if (rootId == this.rootId) {
       return this.cachedTree;
     }

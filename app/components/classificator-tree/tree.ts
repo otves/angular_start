@@ -10,7 +10,7 @@ export class Tree {
   nodes:Tree[];
 
   subTree(nodeId:string, tree:Tree = this, level:number = 0):Tree {
-    console.log('subTree:' + nodeId + ', tree:', tree);
+    //console.log('subTree:' + nodeId + ', tree:', tree);
     tree.level = level;
     if (nodeId == tree.id) {
       return tree;
