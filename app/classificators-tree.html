@@ -1,0 +1,8 @@
+<md-tab-group class="demo-tab-group" (selectChange)="onSelectChange($event)">
+  <md-tab  *ngFor="let tab of tabs">
+    <template md-tab-label>{{tab.title}}</template>
+    <template md-tab-content>
+      <classificator-tree [model]="classificatorTree" (nodeClick)="onNodeClick($event)"  *ngIf="selectedType == tab.type" [type]="tab.type"></classificator-tree>
+    </template>
+  </md-tab>
+</md-tab-group>

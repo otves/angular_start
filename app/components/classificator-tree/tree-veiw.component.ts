@@ -1,6 +1,5 @@
 import { Component, Input,  Output, EventEmitter} from '@angular/core';
-import { OkpdService } from 'app/okpd.service';
-import { TreeModel } from './tree.model';
+import { Tree } from './tree';
 
 @Component({
   moduleId: module.id,
@@ -9,7 +8,7 @@ import { TreeModel } from './tree.model';
 })
 export class TreeViewComponent {
 
-  @Input() model:TreeModel;
+  @Input() model:Tree;
 
   @Output() nodeClick:EventEmitter<string> = new EventEmitter<string>();
 
@@ -18,8 +17,7 @@ export class TreeViewComponent {
     this.nodeClick.emit(nodeId);
   }
 
-
-  expand(treeNode:TreeModel) {
+  expand(treeNode:Tree) {
     treeNode.expanded = !treeNode.expanded;
     this.onNodeClick(treeNode.id);
   }

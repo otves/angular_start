@@ -17,8 +17,17 @@ const routes:Routes = [
         component: ClassificatorsTreeComponent
       },
       {
-        path: ':root',
-        component: ClassificatorsTreeComponent
+        path: ':type',
+        children: [
+          {
+            path: '',
+            component: ClassificatorsTreeComponent
+          },
+          {
+            path: ':code',
+            component: ClassificatorsTreeComponent
+          }
+        ]
       }
     ]
   },
