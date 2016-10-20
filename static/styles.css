@@ -16,9 +16,11 @@ body, input[text], button {
   color: #888;
   font-family: Cambria, Georgia;
 }
-a {
+a, .href {
   cursor: pointer;
   cursor: hand;
+  color: #039be5;
+  text-decoration: underline;
 }
 button {
   font-family: Arial;

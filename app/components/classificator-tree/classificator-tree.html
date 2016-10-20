@@ -1,1 +1,9 @@
-<tree-view (initRoot)="loadNodes($event)" [model]= "model"></tree-view>
+<div *ngIf="model.detailed != null">
+    <div *ngFor="let item of model.treePath ">
+     <div [style.margin-left.px] = "item.level*7"> - {{item.name}}</div>
+    </div>
+</div>
+<div *ngIf="model.detailed != null">
+  {{model.name}}  {{model.notes}}
+</div>
+<tree-view (nodeClick)="onNodeClick($event)" [model]= "model.tree"></tree-view>
